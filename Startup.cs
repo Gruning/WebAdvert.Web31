@@ -32,7 +32,17 @@ namespace WebAdvert.Web31
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.AddCognitoIdentity();
+            services.AddCognitoIdentity(config => {
+                config.Password = new Microsoft.AspNetCore.Identity.PasswordOptions
+                {
+                    RequireDigit = false,
+                    RequiredLength = 6,
+                    RequiredUniqueChars = 0,
+                    RequireLowercase = false,
+                    RequireNonAlphanumeric = false,
+                    RequireUppercase = false
+                };
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
@@ -48,10 +58,9 @@ namespace WebAdvert.Web31
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-
+            app.UseCookiePolicy();
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
             //app.UseMvc(routes => {
             //    routes.MapRoute(
