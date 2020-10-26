@@ -52,6 +52,13 @@ namespace WebAdvert.Web31
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
+            //app.UseMvc(routes => {
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template:"{controller=Home}/{action=Index}/{id}"
+            //        );
+            //});
 
             app.UseEndpoints(endpoints =>
             {
