@@ -22,16 +22,20 @@ namespace WebAdvert.Web31.Controllers
             this._pool = pool;
         }
         public async Task<IActionResult> SignUp() {
-            var model = new SignUpModel();
+            var model = new SignupModel();
             return View(model);
         }
         [HttpPost]
         public async Task<ActionResult> SignUp(SignupModel model) {
             if (ModelState.IsValid)
             {
-
+                var user = _pool.GetUser(model.Email);
+                if (user.Status != null)
+                {
+                    ModelState.AddModelError("UserExists","User with this code already exists");
+                }
             }
-            return VIew();
+            return View();
         }
     }
 }
