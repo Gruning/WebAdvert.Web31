@@ -27,13 +27,18 @@ namespace WebAdvert.Web31.Controllers
         }
         [HttpPost]
         public async Task<ActionResult> SignUp(SignupModel model) {
+            var user = _pool.GetUser(model.Email);
             if (ModelState.IsValid)
             {
-                var user = _pool.GetUser(model.Email);
                 if (user.Status != null)
                 {
                     ModelState.AddModelError("UserExists","User with this code already exists");
                 }
+            }
+            var createUser = _userManager.CreateAsync(user, model.Password);
+            if (createUser.IsCompletedSuccessfully)
+            {
+                RedirectToAction("Confirm");
             }
             return View();
         }
