@@ -1,4 +1,5 @@
-﻿using Amazon.Extensions.CognitoAuthentication;
+﻿using Amazon.AspNetCore.Identity.Cognito;
+using Amazon.Extensions.CognitoAuthentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -35,8 +36,10 @@ namespace WebAdvert.Web31.Controllers
                     ModelState.AddModelError("UserExists","User with this code already exists");
                 }
             }
-            var createUser = _userManager.CreateAsync(user, model.Password);
-            if (createUser.IsCompletedSuccessfully)
+            //user.Attributes.Add(CognitoAttributesConstants.Name, model.Email);
+            user.Attributes.Add(CognitoAttribute.Name.ToString() , model.Email);
+            var createUser = await _userManager.CreateAsync(user, model.Password);
+            if (createUser.Succeeded)
             {
                 RedirectToAction("Confirm");
             }
