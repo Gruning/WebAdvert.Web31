@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿using System.ComponentModel.DataAnnotations;
+ 
 namespace WebAdvert.Web31.Models.Accounts
 {
     public class ConfirmModel
     {
+
+        [Required(ErrorMessage = "Email is required")]
+        [Display(Name ="Email")][EmailAddress] 
+        public string Email { get; set; }
+        [Required(ErrorMessage ="Code is required")]
+        public string Code { get; set; }
+
     }
 }
