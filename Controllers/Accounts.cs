@@ -43,7 +43,30 @@ namespace WebAdvert.Web31.Controllers
             {
                 RedirectToAction("Confirm");
             }
-            return View();
+            return View(model);
+        }
+        public async Task<ActionResult> Confirm(ConfirmModel model) {
+            var model = new ConfirmModel();
+            return View(model);
+        }
+        [HttpPost]
+        public async Task <ActionResult> Confirm(ConfirmModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user is null)
+                    ModelState.AddModelError("not-found", "User not found");
+                    return View(model);
+                var result = await _userManager.ConfirmEmailAsync(user, model.Code);
+                if (result.Succeeded)
+                    return RedirectToAction("Index","Home");
+                else
+                    foreach (var item in result.Errors)
+                        ModelState.AddModelError(item.Code, item.Description);
+
+            }
+            return View(model);
         }
     }
 }
