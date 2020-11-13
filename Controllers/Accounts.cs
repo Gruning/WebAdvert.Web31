@@ -45,12 +45,13 @@ namespace WebAdvert.Web31.Controllers
             }
             return View(model);
         }
+        [HttpGet]
         public async Task<ActionResult> Confirm(ConfirmModel model) {
-            var model = new ConfirmModel();
-            return View(model);
+            var _model = new ConfirmModel();
+            return View(_model);
         }
         [HttpPost]
-        public async Task <ActionResult> Confirm(ConfirmModel model)
+        public async Task <ActionResult> _Confirm(ConfirmModel model)
         {
             if (ModelState.IsValid)
             {
