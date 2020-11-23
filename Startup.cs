@@ -59,13 +59,14 @@ namespace WebAdvert.Web31
             }
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseAuthentication();
             app.UseRouting();
 
-            app.UseAuthentication();
-            //app.UseMvc(routes => {
+            //app.UseMvc(routes =>
+            //{
             //    routes.MapRoute(
             //        name: "default",
-            //        template:"{controller=Home}/{action=Index}/{id}"
+            //        template: "{controller=Home}/{action=Index}/{id}"
             //        );
             //});
 
