@@ -24,7 +24,7 @@ namespace WebAdvert.Web31
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllersWithViews();
+            services.AddControllersWithViews();
 
             //this lambda determines wheter the user consent for non escential cookies
             services.Configure<CookiePolicyOptions>(options =>
@@ -44,6 +44,7 @@ namespace WebAdvert.Web31
                 };
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            var enable = new MvcOptions.EnableEndpointRouting(false) ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -62,20 +63,20 @@ namespace WebAdvert.Web31
             app.UseAuthentication();
             app.UseRouting();
 
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id}"
-            //        );
-            //});
+            app.UseMvc(routes =>
+              {
+                  routes.MapRoute(
+                      name: "default",
+                      template: "{controller=Home}/{action=Index}/{id}"
+                      );
+              });
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
         }
     }
 }
