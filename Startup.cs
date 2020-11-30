@@ -24,7 +24,9 @@ namespace WebAdvert.Web31
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             services.AddControllersWithViews();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
 
             //this lambda determines wheter the user consent for non escential cookies
             services.Configure<CookiePolicyOptions>(options =>
@@ -43,9 +45,7 @@ namespace WebAdvert.Web31
                     RequireUppercase = false
                 };
             });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            services.AddMvc(options => options.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
